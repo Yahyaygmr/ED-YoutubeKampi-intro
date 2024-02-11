@@ -2,6 +2,7 @@
 
 
 using intro.Business;
+using intro.DataAccess.Concretes;
 using intro.Entities;
 
 //Console.WriteLine("Hello, World!");
@@ -58,11 +59,51 @@ using intro.Entities;
 
 //Course[] courses = {course1, course2, course3 };
 
-CourseManager courseManager = new CourseManager();
-Course[] courses = courseManager.GetAll();
+CourseManager courseManager = new CourseManager(new DapperCourseDal());
+List<Course> courses = courseManager.GetAll();
 
-for (int c = 0; c < courses.Length; c++)
+for (int c = 0; c < courses.Count; c++)
 {
     Console.WriteLine(courses[c].Name + "/" + courses[c].Price);
 }
 
+
+Console.WriteLine("-----------------------------------------------------");
+
+
+IndividualCustomer customer1 = new IndividualCustomer();
+customer1.Id = 1;
+customer1.NationalIdentity = "12345678910";
+customer1.FirstName = "Yahya";
+customer1.LastName = "Yağmur";
+customer1.CustomerNumber = "123456";
+
+IndividualCustomer customer2 = new IndividualCustomer();
+customer2.Id = 2;
+customer2.NationalIdentity = "89101112131";
+customer2.FirstName = "Özgür";
+customer2.LastName = "Atılgan";
+customer2.CustomerNumber = "456789";
+
+CoorporateCustomer customer3 = new CoorporateCustomer();
+customer3.Id = 3;
+customer3.Name = "Kodlamaio";
+customer3.CustomerNumber = "6789210";
+customer3.TaxNumber = "1234567789";
+
+CoorporateCustomer customer4 = new CoorporateCustomer();
+customer4.Id = 4;
+customer4.Name = "abc";
+customer4.CustomerNumber = "678721310";
+customer4.TaxNumber = "94231267789";
+
+
+BaseCustomer[] customers = {customer1, customer2, customer3, customer4 };
+
+//Polymorphism - Çok biçimlilik
+foreach (BaseCustomer customer in customers)
+{
+    Console.WriteLine(customer.CustomerNumber);
+}
+
+Console.WriteLine("-----------");
